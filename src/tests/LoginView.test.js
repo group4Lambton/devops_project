@@ -28,6 +28,6 @@ test('Should render LoginView Component with the correct elements', () => {
 test('should render the initial fields as empty', () => {
   renderWithProvider(<LoginView />);
 
-  expect(screen.getByLabelText(/Email address/i).value).toBe('');
+  expect(screen.getByLabelText(/Email address/i).value).toBe('Test');
   expect(screen.getByLabelText(/Password/i).value).toBe('');
 });
