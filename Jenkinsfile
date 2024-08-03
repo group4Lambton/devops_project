@@ -1,18 +1,12 @@
 pipeline {
     agent any
 
-    environment {
-        // Definir variables de entorno si es necesario
-        // Por ejemplo, para utilizar en las etapas
-        // NODE_ENV = 'production'
-    }
-
     stages {
         stage('Checkout') {
             steps {
                 echo 'Checking out code...'
                 // Clona el repositorio desde GitHub
-                git branch: 'main', url: 'https://github.com/tu_usuario/tu_proyecto.git'
+                git branch: 'main', url: 'https://github.com/group4Lambton/devops_project.git'
             }
         }
         
