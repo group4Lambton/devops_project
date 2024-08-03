@@ -20,12 +20,6 @@ pipeline {
                 sh 'npm run build'
             }
         }
-        // Eliminar o comentar la etapa de pruebas
-        // stage('Test') {
-        //     steps {
-        //         sh 'npm test'
-        //     }
-        // }
         stage('Deploy') {
             steps {
                 sh 'npm run deploy'
