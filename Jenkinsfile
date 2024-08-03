@@ -17,7 +17,8 @@ pipeline {
             steps {
                 echo 'Building...'
                 sh 'npm install'
-                sh 'npm run build'
+                // Asegúrate de que el directorio node_modules/.bin esté en el PATH
+                sh 'export PATH=$PATH:$(npm bin); npm run build'
             }
         }
         
