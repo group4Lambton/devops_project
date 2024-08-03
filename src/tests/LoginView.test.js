@@ -1,12 +1,14 @@
 import React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import { store } from '../store';
 import { LoginView } from 'src/sections/login';
-import { useDispatch } from 'react-redux';
-import { startEmailPassword } from 'src/store/auth/thunks';
+
+// Eliminar las importaciones no utilizadas
+// import { useDispatch } from 'react-redux';
+// import { startEmailPassword } from 'src/store/auth/thunks';
 
 const renderWithProvider = (ui) => {
   return render(
@@ -25,6 +27,7 @@ test('Should render LoginView Component with the correct elements', () => {
   expect(screen.getByText(/Forgot password?/i)).toBeInTheDocument();
   expect(screen.getByRole('button', { name: /Login/i })).toBeInTheDocument();
 });
+
 test('should render the initial fields as empty', () => {
   renderWithProvider(<LoginView />);
 
