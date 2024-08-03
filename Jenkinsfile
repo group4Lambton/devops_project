@@ -25,14 +25,14 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing...'
-                sh 'npm test'
+                sh 'export PATH=$PATH:$(npm bin); npm test'
             }
         }
 
         stage('Deploy') {
             steps {
                 echo 'Deploying...'
-                sh 'npm run deploy'
+                sh 'export PATH=$PATH:$(npm bin); npm run deploy'
             }
         }
     }
@@ -42,7 +42,7 @@ pipeline {
             echo 'Pipeline completed successfully!'
         }
         failure {
-            echo 'Pipeline failed!'
+            echo 'Pipeline failed! William'
         }
     }
 }
