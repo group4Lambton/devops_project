@@ -20,10 +20,6 @@ pipeline {
                 sh 'npm run build'
             }
         }
-        stage('Deploy') {
-            steps {
-                sh 'npm run deploy'
-            }
-        }
     }
 }
+
