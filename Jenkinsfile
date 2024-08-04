@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials') // Asegúrate de tener las credenciales configuradas en Jenkins
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
     }
     stages {
         stage('Checkout') {
@@ -21,6 +21,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 sh 'npm install'
+                sh 'npm install @esbuild/linux-x64 --no-save'
             }
         }
         stage('Build') {
@@ -31,15 +32,15 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build("usuario/nombre-de-tu-imagen:latest")
+                    docker.build("williamrivas1227/devops_project:latest")
                 }
             }
         }
         stage('Push Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/', 'DOCKERHUB_CREDENTIALS') {
-                        docker.image("usuario/nombre-de-tu-imagen:latest").push()
+                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-credentials') {
+                        docker.image("williamrivas1227/devops_project:latest").push()
                     }
                 }
             }
