@@ -1,22 +1,23 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { Provider } from 'react-redux';
+import { test, expect } from '@jest/globals';
 import { MemoryRouter } from 'react-router-dom';
-import { store } from '../store';
+import { render, screen } from '@testing-library/react';
+
 import { LoginView } from 'src/sections/login';
+
+import { store } from '../store';
 
 // Eliminar las importaciones no utilizadas
 // import { useDispatch } from 'react-redux';
 // import { startEmailPassword } from 'src/store/auth/thunks';
 
-const renderWithProvider = (ui) => {
-  return render(
+const renderWithProvider = (ui) => render(
     <Provider store={store}>
       <MemoryRouter>{ui}</MemoryRouter>
     </Provider>
   );
-};
 
 test('Should render LoginView Component with the correct elements', () => {
   renderWithProvider(<LoginView />);
