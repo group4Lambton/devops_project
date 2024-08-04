@@ -17,7 +17,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'npm run build ready'
+                sh 'npm run build'
             }
         }
     }
