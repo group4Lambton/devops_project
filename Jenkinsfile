@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        PATH = "/usr/local/bin:/usr/bin:/bin" // Asegúrate de que el PATH esté configurado correctamente
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials') // Asegúrate de tener las credenciales configuradas en Jenkins
     }
     stages {
         stage('Checkout') {
@@ -11,12 +11,6 @@ pipeline {
                     branches: [[name: '*/dev']], 
                     userRemoteConfigs: [[url: 'https://github.com/group4Lambton/devops_project.git']]
                 ]
-            }
-        }
-        stage('Check Node.js and npm Versions') {
-            steps {
-                sh 'node -v'
-                sh 'npm -v'
             }
         }
         stage('Clean npm cache') {
@@ -29,15 +23,25 @@ pipeline {
                 sh 'npm install'
             }
         }
-        stage('Verify @esbuild/linux-x64 Installation') {
-            steps {
-                sh 'npm install @esbuild/linux-x64 --no-save'
-                sh 'npm ls @esbuild/linux-x64'
-            }
-        }
         stage('Build') {
             steps {
                 sh 'npm run build'
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    docker.build("usuario/nombre-de-tu-imagen:latest")
+                }
+            }
+        }
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', 'DOCKERHUB_CREDENTIALS') {
+                        docker.image("usuario/nombre-de-tu-imagen:latest").push()
+                    }
+                }
             }
         }
     }
