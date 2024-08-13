@@ -50,7 +50,7 @@ pipeline {
             steps {
                 script {
                     // Apply the updated deployment configuration
-                    sh 'kubectl apply -f deployment.yaml'
+                    sh 'kubectl apply -f k8s/deployment.yaml'
                 }
             }
         }
