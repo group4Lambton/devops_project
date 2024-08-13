@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-project-deployment
+  labels:
+    app: devops-project
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devops-project
+  template:
+    metadata:
+      labels:
+        app: devops-project
+    spec:
+      containers:
+      - name: devops-project-container
+        image: williamrivas/devops_project:latest
+        ports:
+        - containerPort: 3030
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "512Mi"  # Increased from 256Mi
+            cpu: "500m"
+          limits:
+            memory: "1Gi"   # Increased from 512Mi
+            cpu: "1"

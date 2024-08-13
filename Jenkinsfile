@@ -2,6 +2,7 @@ pipeline {
     agent any
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
+        KUBECONFIG = credentials('kubeconfig') // Replace with your kubeconfig credentials ID
     }
     stages {
         stage('Checkout') {
@@ -42,6 +43,14 @@ pipeline {
                     docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-credentials') {
                         docker.image("williamrivas/devops_project:latest").push()
                     }
+                }
+            }
+        }
+        stage('Deploy to Kubernetes') {
+            steps {
+                script {
+                    // Apply the updated deployment configuration
+                    sh 'kubectl apply -f deployment.yaml'
                 }
             }
         }
