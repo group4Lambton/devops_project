@@ -27,6 +27,7 @@ export default defineConfig({
     ],
   },
   server: {
+    host: '0.0.0.0',  // Added this line to export outside the container
     port: 3030,
   },
   preview: {

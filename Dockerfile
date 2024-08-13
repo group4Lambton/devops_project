@@ -1,27 +1,20 @@
-# Usar una imagen de Node.js como base
+# Use a Node.js image as the base
 FROM node:18
 
-# Establecer el directorio de trabajo en el contenedor
+# Set the working directory in the container
 WORKDIR /usr/src/app
 
-# Copiar el package.json y el package-lock.json al directorio de trabajo
-COPY package*.json ./
+# Copy package.json and yarn.lock to the working directory
+COPY package.json yarn.lock ./
 
-# Instalar las dependencias del proyecto
-RUN npm install
+# Install project dependencies using Yarn
+RUN yarn install
 
-# Copiar el resto de los archivos del proyecto al directorio de trabajo
+# Copy the rest of the project files to the working directory
 COPY . .
 
-# Compilar la aplicación de React
-RUN npm run build
-
-# Instalar un servidor web estático para servir la aplicación de React
-RUN npm install -g serve
-
-# Exponer el puerto en el que la aplicación será servida
+# Expose the port on which the application will be served
 EXPOSE 3030
 
-# Comando para correr la aplicación
-CMD ["serve", "-s", "build", "-l", "3030"]
-
+# Command to run the application in development mode
+CMD ["yarn", "dev"]
