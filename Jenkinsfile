@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-cred')
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
         KUBECONFIG = credentials('kubeconfig') // Replace with your kubeconfig credentials ID
     }
     stages {
