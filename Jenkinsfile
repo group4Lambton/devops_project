@@ -51,6 +51,7 @@ pipeline {
             steps {
                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials']]) {
                     script {
+                        sh 'kubectl delete deployment devops-project-deployment'
                         // Apply the updated deployment configuration using AWS credentials
                         sh 'kubectl apply -f k8s/deployment.yaml'
                     }
