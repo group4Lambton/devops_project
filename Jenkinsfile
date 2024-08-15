@@ -40,7 +40,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-cred') {
+                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-credentials') {
                         docker.image("williamrivas/devops_project:latest").push()
                     }
                 }
