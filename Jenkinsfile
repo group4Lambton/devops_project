@@ -2,7 +2,8 @@ pipeline {
     agent any
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
-        KUBECONFIG = credentials('kubeconfig') // Replace with your kubeconfig credentials ID
+        KUBECONFIG = credentials('kubeconfig')
+        AWS_CREDENTIALS = 'aws-credentials' // Este es el ID que configuraste para las credenciales AWS
     }
     stages {
         stage('Checkout') {
@@ -48,9 +49,11 @@ pipeline {
         }
         stage('Deploy to Kubernetes') {
             steps {
-                script {
-                    // Apply the updated deployment configuration
-                    sh 'kubectl apply -f k8s/deployment.yaml'
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials']]) {
+                    script {
+                        // Apply the updated deployment configuration using AWS credentials
+                        sh 'kubectl apply -f k8s/deployment.yaml'
+                    }
                 }
             }
         }
