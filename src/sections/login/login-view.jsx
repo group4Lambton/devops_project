@@ -106,7 +106,7 @@ export default function LoginView() {
             maxWidth: 420,
           }}
         >
-          <Typography variant="h4">Sign in to Minimal</Typography>
+          <Typography variant="h4">This text was changed</Typography>
 
           <Stack direction="row" spacing={2}>
             <Button
